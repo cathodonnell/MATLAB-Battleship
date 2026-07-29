@@ -1,0 +1,12 @@
+Item		Quantity	Cost
+shirts		2		$40.00
+pants		1		$35.00
+shoes		2		$130.00
+socks		1		$12.00
+Total Clothing Cost		$195.30
+
+Food Item	Quantity	Cost
+pizza		2		$11.98
+Total Food Cost		$33.45
+
+Total Cost (inc tax)	$251.62

@@ -1,0 +1,32 @@
+function [strategy,bestPoints_unique] = strategize_codonnell(hitPoints,allPoints,s_new,s)
+%stategize_codonnell should take inputs of previous hits and misses, and
+%determine the best possible next hit points, then limit the points to
+%those.
+n=height(hitPoints);
+lastHit=hitPoints(end,:);
+if hitPoints(n,1)==hitPoints((n-1),1) && s_new==s & n>1
+    %x value is the same
+    bestX=lastHit(1,1);
+    lastY=lastHit(1,2);
+    bestPoints=[bestX,(lastY-1);bestX,(lastY+1)];
+    bestPoints_unique=unique(bestPoints,allPoints,'rows');
+    strategy=height(bestPoints_unique);
+elseif hitPoints(n,2)==hitpoint((n-1),2) & s_new==s & n>1
+    %y value is the same
+    bestY=lastHit(1,2);
+    lastX=lastHit(1,1);
+    bestPoints=[(lastX-1),bestY;(lastX+1),bestY];
+    bestPoints_unique=unique(bestPoints,allPoints,'rows');
+    strategy=height(bestPoints_unique);
+elseif s_new>s
+    %last point on that ship
+    strategy=0;
+else
+    %first hit on that ship
+    lastX=lastHit(1,1);
+    lastY=lastHit(1,2);
+    bestPoints=[(lastX-1),lastY;(lastX+1),lastY;lastX,(lastY-1);lastX,(lastY+1)];
+    bestPoints_unique=unique(bestPoints,allPoints,'rows');
+    strategy=height(bestPoints_unique);
+end
+end

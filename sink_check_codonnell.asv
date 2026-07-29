@@ -1,0 +1,42 @@
+function [s_new,s1,s2,s3,s4,s5,sunkShips] = sink_check_codonnell(hitPoints,ship1,ship2,ship3,ship4,ship5,sunkShips)
+%sink_check_codonnell looks at the current points a battleship player has
+%hit and determines whether they have sunk a ship
+s1=ismember(hitPoints,ship1,'rows');
+if sum(s1)==length(ship1)
+    s1=1;
+    sunkShips=ship1;
+else
+    s1=0;
+end
+s2=ismember(hitPoints,ship2,'rows');
+if sum(s2)==length(ship2)
+    s2=1;
+    sunkShips(end+1:(end+1)+length(ship2),:)=ship2;
+else
+    s2=0;
+end
+s3=ismember(hitPoints,ship3,'rows');
+if sum(s3)==length(ship3)
+    s3=1;
+    sunkShips(end+1:(end+1)+length(ship3),:)=ship3;
+else
+    s3=0;
+end
+s4=ismember(hitPoints,ship4,'rows');
+if sum(s4)==length(ship4)
+    s4=1;
+    sunkShips(end+1:(end+1)+length(ship4))=ship4;
+else
+    s4=0;
+end
+s5=ismember(hitPoints,ship5,'rows');
+if sum(s5)==length(ship5)
+    s5=1;
+    sunkShips(end+1:(end+1)+length(ship4))=ship5
+else
+    s5=0;
+end
+
+s_new=s1+s2+s3+s4+s5;
+
+end

@@ -1,0 +1,44 @@
+function [strategy,bestPoints_unique,reverse] = reverse_codonnell(hitPoints,allPoints,s_new,s,strategy,reverse)
+%reverse recognizes that the bot is at one end of a ship it has not sunk
+%and sends it back the other way
+n=height(hitPoints)
+lastHit=hitPoints(end,:)
+if n>1 && hitPoints(n,1)==hitPoints((n-1),1) && s_new==s && strategy>0
+    %x value is the same
+    fprintf('vertical ship recognized')
+    bestX=lastHit(1,1)
+    lastY=lastHit(1,2)
+    if hitPoints((n-1),2)>hitPoints(n,2)
+        bestPoints_unique=[bestX,(lastY+reverse)];
+    else
+        bestPoints_unique=[bestX,(lastY-reverse)];
+    end
+    reverse=0;
+    strategy=1;
+elseif n>1 && hitPoints(n,2)==hitPoints((n-1),2) && s_new==s && strategy>0
+    %y value is the same
+    fprintf('horizontal ship recognized')
+    bestY=lastHit(1,2)
+    lastX=lastHit(1,1)
+    if hitPoints((n-1),1)>hitPoints(n,1)
+        %been moving left
+        bestPoints_unique=[(lastX+reverse),bestY];
+    else
+        %been moving right
+        bestPoints_unique=[(lastX-reverse),bestY];
+    end
+    reverse=0;
+    strategy=1;
+elseif s_new>s
+    %last point on that ship
+    fprintf('last point on this ship')
+    strategy=0;
+    bestPoints_unique=[0 0];
+    reverse=0;
+else
+    fprintf('I''ve made a mistake in my reversing strategy...Might as well go back to random!')
+    strategy=0;
+    bestPoints_unique=[0 0];
+    reverse=0;
+end
+end
